@@ -1,0 +1,43 @@
+{
+    "name": "dongbuk1_amons_gas_receiver",
+    "version": "1.0.0",
+    "description": "금호건설 동북선1공구 가스 수신 서버",
+    "main": "app.js",
+    "author": "OPENWORKS",
+    "license": "MIT",
+    "scripts": {
+        "start": "nodemon app.js",
+        "dist": "pm2 start app.js --name GAS_RECEIVER_SERVER_DONGBUK(8088) --log-date-format \"YYYY-MM-DD HH:mm:ss\""
+    },
+    "keywords": [
+        "금호건설",
+        "동북선1공구",
+        "가스",
+        "수신",
+        "서버",
+        "version2.0"
+    ],
+    "dependencies": {
+        "cookie-parser": "^1.4.6",
+        "cors": "^2.8.5",
+        "dotenv": "^10.0.0",
+        "ejs": "^3.1.6",
+        "express": "^4.17.2",
+        "express-session": "^1.17.2",
+        "moment": "^2.29.1",
+        "moment-timezone": "^0.5.34",
+        "morgan": "^1.10.0",
+        "mysql": "^2.18.1",
+        "node-schedule": "^2.1.0",
+        "request": "^2.88.2"
+    },
+    "devDependencies": {
+        "eslint": "^8.5.0",
+        "eslint-config-airbnb": "^19.0.4",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-import": "^2.25.3",
+        "eslint-plugin-node": "^11.1.0",
+        "nodemon": "^2.0.15",
+        "prettier": "^2.5.1"
+    }
+}

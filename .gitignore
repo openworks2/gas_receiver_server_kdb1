@@ -1,0 +1,9 @@
+
+# dependencies
+/node_modules
+
+# file
+database.json
+.env
+
+
