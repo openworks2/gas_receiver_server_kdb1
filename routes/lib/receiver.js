@@ -344,7 +344,6 @@ const receiver = {
             }
         }
         //로그 입력 및 상태 업데이트
-        console.log('data->', data);
 
         _this.logInsert(data);
 
@@ -414,8 +413,6 @@ const receiver = {
     },
     logInsert(data) {
         //수신 로그 입력
-        console.log('data>', data);
-
         const _this = this;
         let _query = queryconfig.logInsert(data);
         // queryconfig.logInsert(data) + queryconfig.recordUpdate(data);

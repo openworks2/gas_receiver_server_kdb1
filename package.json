@@ -1,5 +1,5 @@
 {
-    "name": "dongbuk1_amons_gas_receiver",
+    "name": "gas_receiver_server_kdb1",
     "version": "1.0.0",
     "description": "금호건설 동북선1공구 가스 수신 서버",
     "main": "app.js",
@@ -7,7 +7,7 @@
     "license": "MIT",
     "scripts": {
         "start": "nodemon app.js",
-        "dist": "pm2 start app.js --name GAS_RECEIVER_SERVER_DONGBUK(8088) --log-date-format \"YYYY-MM-DD HH:mm:ss\""
+        "dist": "pm2 start app.js --name GAS_RECEIVER_SERVER_DONGBUK(9994) --log-date-format \"YYYY-MM-DD HH:mm:ss\""
     },
     "keywords": [
         "금호건설",
