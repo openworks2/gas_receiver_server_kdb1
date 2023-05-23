@@ -7,7 +7,7 @@
     "license": "MIT",
     "scripts": {
         "start": "nodemon app.js",
-        "dist": "pm2 start app.js --name GAS_RECEIVER_SERVER_DONGBUK(9099) --log-date-format \"YYYY-MM-DD HH:mm:ss\""
+        "dist": "pm2 start app.js --name GAS_RECEIVER_SERVER_DONGBUK1(9994) --log-date-format \"YYYY-MM-DD HH:mm:ss\""
     },
     "keywords": [
         "금호건설",

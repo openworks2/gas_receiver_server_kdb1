@@ -12,7 +12,7 @@ const receiver = {
     gasList: {},
     receiveGas: {},
     errorList: {},
-    timeoutCount: 5000,
+    timeoutCount: 20000,
     initFindByOnSensor() {
         const _this = this;
         const _query = queryconfig.findByOnSensor(); // start_time이 Null이 아닌 센서 조회(현재 사용 중인 센서)
@@ -336,7 +336,7 @@ const receiver = {
                         } else {
                             return;
                         }
-                    }, 20000),
+                    }, 300000),
                 };
                 _this.errorList = {
                     ..._this.errorList,
