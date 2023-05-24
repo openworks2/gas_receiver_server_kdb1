@@ -395,6 +395,8 @@ const receiver = {
         }
     },
     usedHisUpdate(data) {
+        const { sensor_index } = data;
+        if (!sensor_index) return;
         let _query = queryconfig.usedHisUpdate({
             ...data,
             stop_time: moment().format('YYYY-MM-DD HH:mm:ss'),
