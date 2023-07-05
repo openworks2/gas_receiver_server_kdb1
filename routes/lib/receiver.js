@@ -219,6 +219,131 @@ const receiver = {
                 };
 
                 // end alarmHandle ///////////////////////////////////
+            } else if (gas_type === 'H2S') {
+                let h2s_stateCode;
+                if (value >= normalLow && value <= normalHigh) {
+                    h2s_stateCode = 0;
+                } else if (value >= warning1_Low && value <= warning1_High) {
+                    h2s_stateCode = 1;
+                } else if (value >= danger1_Low && value <= danger1_High) {
+                    h2s_stateCode = 2;
+                }
+
+                data['value']['h2s_state_code'] = h2s_stateCode;
+
+                //alarmInsert
+                // alarmHandler ///////////////////////////////
+                let _gasErrorObj = {
+                    gas_type: 'H2S',
+                    stateCode: h2s_stateCode,
+                    sensorIndex,
+                    recordTime: data['record_time'],
+                    value,
+                };
+
+                _this.alarmHandler(_gasErrorObj);
+            } else if (gas_type === 'CO') {
+                let co_stateCode;
+
+                if (value >= normalLow && value <= normalHigh) {
+                    co_stateCode = 0;
+                } else if (value >= warning1_Low && value <= warning1_High) {
+                    co_stateCode = 1;
+                } else if (value >= danger1_Low && value <= danger1_High) {
+                    co_stateCode = 2;
+                }
+
+                data['value']['co_state_code'] = co_stateCode;
+
+                //alarmInsert
+                // alarmHandler ///////////////////////////////
+                let _gasErrorObj = {
+                    gas_type: 'CO',
+                    stateCode: co_stateCode,
+                    sensorIndex,
+                    recordTime: data['record_time'],
+                    value,
+                };
+
+                _this.alarmHandler(_gasErrorObj);
+                //////////////////////////////////////////////
+            } else if (gas_type === 'VOC') {
+                let voc_stateCode;
+                if (value >= normalLow && value <= normalHigh) {
+                    voc_stateCode = 0;
+                } else if (value >= warning1_Low && value <= warning1_High) {
+                    voc_stateCode = 1;
+                } else if (value >= danger1_Low && value <= danger1_High) {
+                    voc_stateCode = 2;
+                }
+
+                data['value']['voc_state_code'] = voc_stateCode;
+
+                //alarmInsert
+                // alarmHandler ///////////////////////////////
+                let _gasErrorObj = {
+                    gas_type: 'VOC',
+                    stateCode: voc_stateCode,
+                    sensorIndex,
+                    recordTime: data['record_time'],
+                    value,
+                };
+
+                _this.alarmHandler(_gasErrorObj);
+                //////////////////////////////////////////////
+            } else if (gas_type === 'COMB') {
+                let comb_stateCode;
+                if (value >= normalLow && value <= normalHigh) {
+                    comb_stateCode = 0;
+                } else if (value >= warning1_Low && value <= warning1_High) {
+                    comb_stateCode = 1;
+                } else if (value >= danger1_Low && value <= danger1_High) {
+                    comb_stateCode = 2;
+                }
+
+                data['value']['comb_state_code'] = comb_stateCode;
+                //alarmInsert
+                // alarmHandler ///////////////////////////////
+                let _gasErrorObj = {
+                    gas_type: 'COMB',
+                    stateCode: comb_stateCode,
+                    sensorIndex,
+                    recordTime: data['record_time'],
+                    value,
+                };
+
+                _this.alarmHandler(_gasErrorObj);
+                //////////////////////////////////////////////
+            }
+        }
+        //로그 입력 및 상태 업데이트
+
+        _this.logInsert(data);
+
+        let hasProperty = _this.receiveGas.hasOwnProperty(sensorIndex);
+        if (!hasProperty) {
+            console.log('has--->FASLE');
+            data['timeoutId'] = setTimeout(() => {
+                console.log('POWER OFF!!!');
+                _this.receiveGas[sensorIndex]['stop_time'] =
+                    data['record_time'];
+                let _startTime =
+                    _this.receiveGas[sensorIndex]['start_time'] || null;
+                if (_startTime) {
+                    _this.sensorOff(_this.receiveGas[sensorIndex]);
+                } else {
+                    _this.sensorOffupdate(sensorIndex);
+                }
+                delete _this.receiveGas[sensorIndex];
+            }, _this.timeoutCount);
+            data['isUsedTime'] = false;
+            data['warmingup_time'] = data['record_time'];
+            _this.receiveGas[sensorIndex] = data;
+            const o2Data = data['value']['O2'];
+            if (o2Data > 0 || o2Data !== 0) {
+                console.log('>>>>>>>>>sensorON!!!!!!!!!!!!');
+                _this.sensorOn(data);
+                _this.receiveGas[sensorIndex]['isUsedTime'] = true;
             } else {
                 const _lowerCode = gas_type.toLowerCase();
 
@@ -253,7 +378,6 @@ const receiver = {
     },
     logInsert(data) {
         //수신 로그 입력
-
         const _this = this;
         let _query = queryconfig.logInsert(data);
         //풀에서 컨넥션 획득

@@ -1,5 +1,5 @@
 {
-    "name": "dongbuk1_amons_gas_receiver",
+    "name": "gas_receiver_server_kdb1",
     "version": "1.0.0",
     "description": "금호건설 동북선1공구 가스 수신 서버",
     "main": "app.js",
