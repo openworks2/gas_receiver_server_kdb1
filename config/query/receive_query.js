@@ -132,22 +132,32 @@ const _query = {
         const combValue = value?.COMB;
         const combStateCode = value?.comb_state_code;
 
-        const query = `UPDATE used_his SET 
-                    stop_time="${stop_time}", 
-                    o2_value=${o2Value}, o2_state_code=${o2StateCode}, 
-                    h2s_value=${h2sValue}, h2s_state_code=${h2sStateCode},
-                    co_value=${coValue}, co_state_code=${coStateCode}, 
-                    voc_value=${vocValue}, voc_state_code=${vocStateCode},
-                    comb_value=${combValue}, comb_state_code=${combStateCode} 
-                    WHERE id = (
-                        SELECT 
-                            temp.id 
-                        FROM (
-                            SELECT MAX(id) AS id FROM used_his 
-                            GROUP BY sensor_index 
-                            HAVING sensor_index="${sensor_index}"
-                        ) temp
-                    );`;
+        // const query = `UPDATE used_his SET
+        //             stop_time="${stop_time}",
+        //             o2_value=${o2Value}, o2_state_code=${o2StateCode},
+        //             h2s_value=${h2sValue}, h2s_state_code=${h2sStateCode},
+        //             co_value=${coValue}, co_state_code=${coStateCode},
+        //             voc_value=${vocValue}, voc_state_code=${vocStateCode},
+        //             comb_value=${combValue}, comb_state_code=${combStateCode}
+        //             WHERE id = (
+        //                 SELECT
+        //                     temp.id
+        //                 FROM (
+        //                     SELECT MAX(id) AS id FROM used_his
+        //                     GROUP BY sensor_index
+        //                     HAVING sensor_index="${sensor_index}"
+        //                 ) temp
+        //             );`;
+
+        const query = `UPDATE info_sensor
+                      SET
+                        sensor_action = 0,
+                        sensor_start_time=NULL,
+                       	sensor_stop_time="${stop_time}",
+                       	sensor_danger_action=0,
+                       	sensor_danger_time=NULL
+                    WHERE sensor_index="${sensor_index}";`;
+
         return query;
     },
     gasLogDelete() {
