@@ -273,30 +273,30 @@ const receiver = {
                             [data.sensor_index]: {
                                 ...data,
                                 timeoutId: setTimeout(() => {
-                                    _this.usedHisUpdate(
-                                        _this.receiveGas[data.sensor_index]
-                                    );
+                                    //     _this.usedHisUpdate(
+                                    //         _this.receiveGas[data.sensor_index]
+                                    //     );
                                     delete _this.receiveGas[data.sensor_index];
-                                    if (_this.errorList?.[data.sensor_index]) {
-                                        const gasErrorObj =
-                                            _this.errorList?.[
-                                                data.sensor_index
-                                            ];
-                                        const errorKeys =
-                                            Object.keys(gasErrorObj);
-                                        const errorObjLength = errorKeys.length;
-                                        if (errorObjLength > 0) {
-                                            for (let keys in gasErrorObj) {
-                                                gasErrorObj[keys][
-                                                    'restore_time'
-                                                ] = data['record_time'];
+                                    //     if (_this.errorList?.[data.sensor_index]) {
+                                    //         const gasErrorObj =
+                                    //             _this.errorList?.[
+                                    //                 data.sensor_index
+                                    //             ];
+                                    //         const errorKeys =
+                                    //             Object.keys(gasErrorObj);
+                                    //         const errorObjLength = errorKeys.length;
+                                    //         if (errorObjLength > 0) {
+                                    //             for (let keys in gasErrorObj) {
+                                    //                 gasErrorObj[keys][
+                                    //                     'restore_time'
+                                    //                 ] = data['record_time'];
 
-                                                _this.alarmUpdate(
-                                                    gasErrorObj[keys]
-                                                );
-                                            }
-                                        }
-                                    }
+                                    //                 _this.alarmUpdate(
+                                    //                     gasErrorObj[keys]
+                                    //                 );
+                                    //             }
+                                    //         }
+                                    //     }
                                 }, _this.timeoutCount),
                             },
                         };
@@ -395,8 +395,8 @@ const receiver = {
         }
     },
     usedHisUpdate(data) {
-        const { sensor_index } = data;
-        if (!sensor_index) return;
+        if (!data?.sensor_index) return;
+        const { sensor_index = null } = data;
         let _query = queryconfig.usedHisUpdate({
             ...data,
             stop_time: moment().format('YYYY-MM-DD HH:mm:ss'),
