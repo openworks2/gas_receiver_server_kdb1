@@ -171,6 +171,7 @@ const receiver = {
         });
     },
     receive(data) {
+        if (data?.value?.O2 === 0) data.value.O2 = 20.9
         const _this = this;
         const { sensor_index: sensorIndex, value: gasObj } = data;
         const gasList = _this.gasList[sensorIndex];
